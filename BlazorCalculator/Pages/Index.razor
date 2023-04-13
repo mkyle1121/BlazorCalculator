@@ -1,0 +1,134 @@
+﻿@page "/"
+
+<br /><br /><br /><br />
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-6 border border-light rounded p-1">
+                <div class="row mb-1">
+                    <div class="col">
+                        <textarea class="text-end w-100" style="height: 30px" readonly @bind="_screen"></textarea>
+                     </div>             
+                </div>
+                <div class="row g-0">
+                    <div class="col">
+                        <button class="btn btn-light w-100 border" @onclick="() => ButtonClick(7)">7</button>
+                    </div>
+                    <div class="col">
+                    <button class="btn btn-light w-100 border" @onclick="() => ButtonClick(8)">8</button>
+                    </div>
+                    <div class="col">
+                    <button class="btn btn-light w-100 border" @onclick="() => ButtonClick(9)">9</button>
+                    </div>                
+                    </div>
+                <div class="row g-0">
+                    <div class="col">
+                    <button class="btn btn-light w-100 border" @onclick="() => ButtonClick(4)">4</button>
+                    </div>
+                    <div class="col">
+                    <button class="btn btn-light w-100 border" @onclick="() => ButtonClick(5)">5</button>
+                    </div>
+                    <div class="col">
+                    <button class="btn btn-light w-100 border" @onclick="() => ButtonClick(6)">6</button>
+                    </div>
+                </div>
+                <div class="row g-0">
+                    <div class="col">
+                    <button class="btn btn-light w-100 border" @onclick="() => ButtonClick(1)">1</button>
+                    </div>
+                    <div class="col">
+                    <button class="btn btn-light w-100 border" @onclick="() => ButtonClick(2)">2</button>
+                    </div>
+                    <div class="col">
+                    <button class="btn btn-light w-100 border" @onclick="() => ButtonClick(3)">3</button>
+                    </div>
+                </div>
+                <div class="row g-0">
+                    <div class="col">
+                        <button class="btn btn-light w-100 border" @onclick='() => OperationClick("+")'>+</button>
+                    </div>
+                    <div class="col">
+                    <button class="btn btn-light w-100 border" @onclick='() => OperationClick("-")'>-</button>
+                    </div>
+                    <div class="col">
+                    <button class="btn btn-light w-100 border" @onclick='() => OperationClick("*")'>*</button>
+                    </div>
+                    <div class="col">
+                    <button class="btn btn-light w-100 border" @onclick='() => OperationClick("/")'>/</button>
+                    </div>
+                </div>
+                <div class="row justify-content-between">                
+                    <div class="col-3">
+                        <button class="btn btn-danger border w-100" @onclick="() => Clear()">C</button>
+                     </div>
+                    <div class="col-2">
+                        <button class="btn btn-primary border w-100" @onclick='() => Equals()'>=</button>
+                    </div>                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+@code
+{
+    private int _num1, _num2;
+    private int _screen;
+    private string _op;
+
+    private void ButtonClick(int num)
+    {        
+        if(_num1 == 0)
+        {
+            _num1 = num;
+            _screen = _num1;
+            return;
+        }
+        else if(_num2 == 0)
+        {
+            _num2 = num;
+            _screen = _num2;
+            return;
+        }
+    }
+
+    private void OperationClick(string op)
+    {
+        _op = op;
+    }
+
+    private void Equals()
+    {
+        switch(_op)
+        {
+            case "+":
+                _screen = _num1 + _num2;
+                _num1 = _screen;
+                _num2 = 0;
+                break;
+            case "-":
+                _screen = _num1 - _num2;
+                _num1 = _screen;
+                _num2 = 0;
+                break;
+            case "*":
+                _screen = _num1 * _num2;
+                _num1 = _screen;
+                _num2 = 0;
+                break;
+            case "/":
+                _screen = _num1 / _num2;
+                _num1 = _screen;
+                _num2 = 0;
+                break;
+            default:
+                _screen = -1;
+                break;
+        }
+    }
+
+    private void Clear()
+    {
+        _screen = _num1 = _num2 = 0;
+        _op = string.Empty;
+    }
+}
